@@ -1,0 +1,29 @@
+{
+  "name": "release_30vu_8500iter",
+  "description": "multiple agent configurations compared",
+  "agents": [
+    {
+      "name": "none",
+      "description": "no agent at all",
+      "additionalJvmArgs": []
+    },
+    {
+      "name": "splunk-otel",
+      "description": "splunk-otel-java 1.9.0",
+      "url": "https://repo1.maven.org/maven2/com/splunk/splunk-otel-javaagent/1.9.0/splunk-otel-javaagent-1.9.0.jar",
+      "additionalJvmArgs": []
+    },
+    {
+      "name": "profiler",
+      "description": "splunk-otel-java 1.9.0 w/ profiler",
+      "url": "https://repo1.maven.org/maven2/com/splunk/splunk-otel-javaagent/1.9.0/splunk-otel-javaagent-1.9.0.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue"
+      ]
+    }
+  ],
+  "maxRequestRate": 900,
+  "concurrentConnections": 30,
+  "totalIterations": 8500,
+  "warmupSeconds": 60
+}
