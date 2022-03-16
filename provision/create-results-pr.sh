@@ -31,7 +31,7 @@ git config --global user.email olone+gdi-bot@splunk.com
 git config --global gpg.program gpg
 git config --global user.signingKey ${GPG_KEY_ID}
 
-git clone https://splunk-o11y-gdi-bot:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git github-clone
+git clone https://srv-gh-o11y-gdi:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git github-clone
 cd github-clone
 git checkout gh-pages
 git checkout -b ${NEW_BRANCH}
@@ -49,7 +49,7 @@ git add results/${REV}/*
 echo "Committing changes..."
 git commit -S -am "Add test results: ${REV}"
 echo "Pushing results to remote branch ${NEW_BRANCH}"
-git push https://splunk-o11y-gdi-bot:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git ${NEW_BRANCH}
+git push https://srv-gh-o11y-gdi:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git ${NEW_BRANCH}
 
 MSG="[automated] Add test results: ${REV}"
 
