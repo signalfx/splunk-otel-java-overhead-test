@@ -43,8 +43,11 @@ rsync -avv --progress "${RESULTS}/${REV}" github-clone/results/
 cd github-clone
 echo "Results list: " && ls -l results/
 ls -1 results/ | grep -v README | grep -v index.txt > results/index.txt
+echo "Copying latest yaml..."
+cp results/${REV}/results.yaml results/latest.yaml
 echo "Adding new files to changelist"
 git add results/index.txt
+git add results/latest.yaml
 git add results/${REV}/*
 echo "Committing changes..."
 git commit -S -am "Add test results: ${REV}"
