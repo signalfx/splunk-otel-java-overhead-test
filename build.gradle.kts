@@ -15,6 +15,7 @@ dependencies {
   testImplementation("org.jooq:joox:1.6.2")
   testImplementation("com.jayway.jsonpath:json-path:2.6.0")
   testImplementation("com.google.code.gson:gson:2.8.9")
+  testImplementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.2")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 }
 
