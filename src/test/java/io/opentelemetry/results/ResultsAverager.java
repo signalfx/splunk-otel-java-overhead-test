@@ -33,10 +33,10 @@ public class ResultsAverager {
         return avgDouble(agentName, x -> (double)x.startupDurationMs) / 1000.0;
     }
 
-    private double avgDouble(String agentName, Function<AppPerfResults,Double> fn) {
+    private double avgDouble(String agentName, Function<AppPerfResults,Double> toDoubleFunction) {
         long count = agentResults(agentName).count();
         double sum = agentResults(agentName)
-                .reduce(0.0, (acc, cur) -> acc + fn.apply(cur), Double::sum);
+                .reduce(0.0, (acc, cur) -> acc + toDoubleFunction.apply(cur), Double::sum);
         return sum/count;
     }
 
