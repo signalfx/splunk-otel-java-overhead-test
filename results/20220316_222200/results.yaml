@@ -1,0 +1,23 @@
+---
+Startup time:
+  No Instrumentation: "15.23 seconds"
+  Splunk OpenTelemetry Java agent: "22.14 seconds"
+  Splunk OpenTelemetry Java agent with AlwaysOn Profiling: "22.92 seconds"
+datetime: "March 16, 2022"
+Request latency:
+  No Instrumentation: "12.24 milliseconds"
+  Splunk OpenTelemetry Java agent: "21.65 milliseconds"
+  Splunk OpenTelemetry Java agent with AlwaysOn Profiling: "34.12 milliseconds"
+Network:
+  No Instrumentation: "12.57 MiB/s"
+  Splunk OpenTelemetry Java agent: "49.95 MiB/s"
+  Splunk OpenTelemetry Java agent with AlwaysOn Profiling: "51.03 MiB/s"
+CPU:
+  No Instrumentation: "32%"
+  Splunk OpenTelemetry Java agent: "39%"
+  Splunk OpenTelemetry Java agent with AlwaysOn Profiling: "45%"
+Throughput:
+  No Instrumentation: "890.47 requests per second"
+  Splunk OpenTelemetry Java agent: "866.74 requests per second"
+  Splunk OpenTelemetry Java agent with AlwaysOn Profiling: "797.46 requests per second"
+version: "1.9.0"
