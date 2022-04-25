@@ -7,20 +7,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Agent {
+import static io.opentelemetry.agents.AgentVersion.LATEST_VERSION;
 
-  final static String OTEL_LATEST = "https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent-all.jar";
+public class Agent {
 
   public final static Agent NONE = new Agent("none", "no agent at all", null);
   public final static Agent LATEST_UPSTREAM_SNAPSHOT = new Agent("snapshot", "latest available snapshot version from main");
 
-  private final static String SPLUNK_AGENT_URL = "https://repo1.maven.org/maven2/com/splunk/splunk-otel-javaagent/1.9.0/splunk-otel-javaagent-1.9.0.jar";
+  private final static String SPLUNK_AGENT_URL =
+      "https://github.com/signalfx/splunk-otel-java/releases/download/v" + LATEST_VERSION + "/splunk-otel-javaagent.jar";
 
-  public final static Agent SPLUNK_OTEL = new Agent("splunk-otel", "splunk-otel-java 1.9.0",
-          SPLUNK_AGENT_URL);
-  public final static Agent SPLUNK_PROFILER = new Agent("profiler", "splunk-otel-java 1.9.0 w/ profiler",
-          SPLUNK_AGENT_URL,
-          List.of("-Dsplunk.profiler.enabled=true"));
+  public final static Agent SPLUNK_OTEL = new Agent("splunk-otel", "splunk-otel-java " + LATEST_VERSION,
+      SPLUNK_AGENT_URL);
+  public final static Agent SPLUNK_PROFILER = new Agent("profiler", "splunk-otel-java " + LATEST_VERSION + " w/ profiler",
+      SPLUNK_AGENT_URL,
+      List.of("-Dsplunk.profiler.enabled=true"));
 
   private final String name;
   private final String description;
@@ -32,7 +33,7 @@ public class Agent {
   }
 
   public Agent(String name, String description, String url) {
-      this(name, description, url, Collections.emptyList());
+    this(name, description, url, Collections.emptyList());
   }
 
   public Agent(String name, String description, String url, List<String> additionalJvmArgs) {
@@ -50,7 +51,7 @@ public class Agent {
     return description;
   }
 
-  public boolean hasUrl(){
+  public boolean hasUrl() {
     return url != null;
   }
 
@@ -64,7 +65,7 @@ public class Agent {
 
   private static URL makeUrl(String url) {
     try {
-      if(url == null) return null;
+      if (url == null) return null;
       return URI.create(url).toURL();
     } catch (MalformedURLException e) {
       throw new RuntimeException("Error parsing url", e);
