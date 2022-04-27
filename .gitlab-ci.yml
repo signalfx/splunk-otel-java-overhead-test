@@ -4,7 +4,10 @@ stages:
 
 run-test:
   stage: run-test
-  when: manual
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main" && $CI_COMMIT_MESSAGE =~ /\[agent-version-update\]/'
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      when: manual
   image:
     name: docker.repo.splunkdev.net/ci-cd/ci-container:python-3.9-aws
   before_script:
