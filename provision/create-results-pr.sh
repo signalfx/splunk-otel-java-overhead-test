@@ -38,6 +38,7 @@ git checkout -b ${NEW_BRANCH}
 cd ..
 
 echo "Setting up a new pull request for results data: ${REV} results"
+MSG="Add test results: ${REV}"
 
 rsync -avv --progress "${RESULTS}/${REV}" github-clone/results/
 cd github-clone
@@ -50,11 +51,14 @@ git add results/index.txt
 git add results/latest.yaml
 git add results/${REV}/*
 echo "Committing changes..."
-git commit -S -am "Add test results: ${REV}"
+git commit -S -am "[automated] $MSG"
 echo "Pushing results to remote branch ${NEW_BRANCH}"
 git push https://srv-gh-o11y-gdi:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git ${NEW_BRANCH}
 
-MSG="[automated] Add test results: ${REV}"
-
 echo "Running PR create command:"
-gh pr create --title "${MSG}" --body "${MSG}" --base gh-pages --head ${NEW_BRANCH}
+gh pr create \
+  --title "$MSG" \
+  --body "$MSG" \
+  --label automated \
+  --base gh-pages \
+  --head "$NEW_BRANCH"
