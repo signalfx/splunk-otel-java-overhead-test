@@ -7,7 +7,7 @@ package io.opentelemetry.agents;
 public final class AgentVersion {
 
   // @formatter:off
-  static final String LATEST_VERSION = "1.10.0";
+  static final String LATEST_VERSION = "1.10.1";
   // @formatter:on
 
   private AgentVersion() {
