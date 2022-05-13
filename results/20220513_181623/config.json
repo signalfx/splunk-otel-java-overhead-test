@@ -1,0 +1,29 @@
+{
+  "name": "release_30vu_8500iter",
+  "description": "multiple agent configurations compared",
+  "agents": [
+    {
+      "name": "none",
+      "description": "no agent at all",
+      "additionalJvmArgs": []
+    },
+    {
+      "name": "splunk-otel",
+      "description": "splunk-otel-java 1.10.2",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.10.2/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": []
+    },
+    {
+      "name": "profiler",
+      "description": "splunk-otel-java 1.10.2 w/ profiler",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.10.2/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue"
+      ]
+    }
+  ],
+  "maxRequestRate": 900,
+  "concurrentConnections": 30,
+  "totalIterations": 8500,
+  "warmupSeconds": 60
+}
