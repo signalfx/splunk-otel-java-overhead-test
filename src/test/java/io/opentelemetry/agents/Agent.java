@@ -19,9 +19,21 @@ public class Agent {
 
   public final static Agent SPLUNK_OTEL = new Agent("splunk-otel", "splunk-otel-java " + LATEST_VERSION,
       SPLUNK_AGENT_URL);
-  public final static Agent SPLUNK_PROFILER = new Agent("profiler", "splunk-otel-java " + LATEST_VERSION + " w/ profiler",
+  public final static Agent SPLUNK_PROFILER = new Agent("cpu:text", LATEST_VERSION + " cpu profiler text",
       SPLUNK_AGENT_URL,
       List.of("-Dsplunk.profiler.enabled=true"));
+
+  public final static Agent SPLUNK_PROFILER_PPROF = new Agent("cpu:pprof", LATEST_VERSION + " cpu profiler pprof",
+      SPLUNK_AGENT_URL,
+      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
+
+  public final static Agent SPLUNK_PROFILER_TLAB = new Agent("cpu+mem:text", LATEST_VERSION + " cpu+mem text",
+      SPLUNK_AGENT_URL,
+      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.memory.enabled=true"));
+
+  public final static Agent SPLUNK_PROFILER_TLAB_PPROF = new Agent("cpu+mem:pprof", LATEST_VERSION + " cpu+mem pprof",
+      SPLUNK_AGENT_URL,
+      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.memory.enabled=true", "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
 
   private final String name;
   private final String description;
