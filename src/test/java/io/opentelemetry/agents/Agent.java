@@ -27,7 +27,7 @@ public class Agent {
       SPLUNK_AGENT_URL,
       List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
 
-  public final static Agent SPLUNK_PROFILER_TLAB = new Agent("cpu+mem:text", LATEST_VERSION + " cpu+mem text",
+  public final static Agent SPLUNK_PROFILER_TLAB = new Agent("cpu:text+mem:pprof", LATEST_VERSION + " cpu:text + mem:pprof",
       SPLUNK_AGENT_URL,
       List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.memory.enabled=true"));
 
