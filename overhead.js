@@ -65,7 +65,8 @@ function addAgents(overview, config) {
         body.classList.add('card-body');
         const title = document.createElement('h5')
         title.classList.add('card-title');
-        title.innerText = `${MARKETING_NAMES[agent.name]} (${agent.name})`;
+        const marketed = MARKETING_NAMES[agent.name] || '';
+        title.innerText = `${marketed} (${agent.name})`;
         const subtitle = document.createElement('h6');
         subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
         subtitle.innerText = agent.description;
