@@ -21,7 +21,9 @@
  */
 function parseCsv(body) {
     const runs = parseRuns(body);
-    const agents = body.split('\n')[0].split(',').slice(1).map(x => x.replace(/:.*/, '')).slice(0, 3);
+    console.log(runs);
+    const headerAgents = body.split('\n')[0].split(',').slice(1).map(x => splitHeader(x)[0]);
+    const agents = [...new Set(headerAgents)];
     console.log(agents);
     return {
         agents: agents,
@@ -37,8 +39,7 @@ function parseRuns(body) {
         const fields = line.split(",");
         const timestamp = fields.shift();
         const fieldTuples = fields.map((elem, i) => {
-            const agent = fieldNames[i + 1].replace(/:.*/, '');
-            const fieldName = fieldNames[i + 1].replace(/.*:/, '');
+            const [agent, fieldName] = splitHeader(fieldNames[i + 1]);
             return [agent, fieldName, elem];
         });
         const obj = fieldTuples.reduce((acc, tuple) => {
@@ -53,6 +54,13 @@ function parseRuns(body) {
         obj['timestamp'] = new Date(Number(timestamp) * 1000);
         return obj;
     });
+}
+
+// splits the "<agent>:field" header into [agent,field]
+function splitHeader(headingColumn){
+    const agentName = headingColumn.replace(/^(.*):.*/, '$1');
+    const fieldName = headingColumn.replace(/^.*:/, '');
+    return [agentName,fieldName];
 }
 
 /*
