@@ -1,0 +1,46 @@
+{
+  "name": "release_30vu_8500iter",
+  "description": "multiple agent configurations compared",
+  "agents": [
+    {
+      "name": "cpu:text",
+      "description": "1.10.2 cpu profiler text",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.10.2/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue"
+      ]
+    },
+    {
+      "name": "cpu:pprof",
+      "description": "1.10.2 cpu profiler pprof",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.10.2/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue",
+        "-Dsplunk.profiler.cpu.data.format\u003dpprof-gzip-base64"
+      ]
+    },
+    {
+      "name": "cpu:text+mem:pprof",
+      "description": "1.10.2 cpu:text + mem:pprof",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.10.2/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue",
+        "-Dsplunk.profiler.memory.enabled\u003dtrue"
+      ]
+    },
+    {
+      "name": "cpu+mem:pprof",
+      "description": "1.10.2 cpu+mem pprof",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.10.2/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue",
+        "-Dsplunk.profiler.memory.enabled\u003dtrue",
+        "-Dsplunk.profiler.cpu.data.format\u003dpprof-gzip-base64"
+      ]
+    }
+  ],
+  "maxRequestRate": 900,
+  "concurrentConnections": 30,
+  "totalIterations": 8500,
+  "warmupSeconds": 60
+}
