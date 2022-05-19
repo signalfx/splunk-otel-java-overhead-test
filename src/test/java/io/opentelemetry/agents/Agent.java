@@ -15,7 +15,12 @@ public class Agent {
   public final static Agent LATEST_UPSTREAM_SNAPSHOT = new Agent("snapshot", "latest available snapshot version from main");
 
   private final static String SPLUNK_AGENT_URL =
-      "https://github.com/signalfx/splunk-otel-java/releases/download/v" + LATEST_VERSION + "/splunk-otel-javaagent.jar";
+          "https://github.com/signalfx/splunk-otel-java/releases/download/v" + LATEST_VERSION + "/splunk-otel-javaagent.jar";
+  public final static Agent SPLUNK_OTEL = new Agent("splunk-otel", "splunk-otel-java " + LATEST_VERSION,
+          SPLUNK_AGENT_URL);
+  public final static Agent SPLUNK_PROFILER = new Agent("cpu:text", LATEST_VERSION + " cpu profiler text",
+          SPLUNK_AGENT_URL,
+          List.of("-Dsplunk.profiler.enabled=true"));
 
   public final static Agent SPLUNK_PROFILER_PPROF_10s = new Agent("full-pprof:0.1Hz", LATEST_VERSION + "full-pprof:0.1Hz",
       SPLUNK_AGENT_URL,
