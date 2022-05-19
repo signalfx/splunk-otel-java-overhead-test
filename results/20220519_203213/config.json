@@ -1,0 +1,42 @@
+{
+  "name": "release_30vu_8500iter",
+  "description": "multiple agent configurations compared",
+  "agents": [
+    {
+      "name": "full-pprof:0.1Hz",
+      "description": "1.11.0full-pprof:0.1Hz",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.11.0/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue",
+        "-Dsplunk.profiler.memory.enabled\u003dtrue",
+        "-Dsplunk.profiler.cpu.data.format\u003dpprof-gzip-base64"
+      ]
+    },
+    {
+      "name": "full-pprof:1Hz",
+      "description": "1.11.0full-pprof:1Hz",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.11.0/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue",
+        "-Dsplunk.profiler.call.stack.interval\u003d1000",
+        "-Dsplunk.profiler.memory.enabled\u003dtrue",
+        "-Dsplunk.profiler.cpu.data.format\u003dpprof-gzip-base64"
+      ]
+    },
+    {
+      "name": "full-pprof:10Hz",
+      "description": "1.11.0full-pprof:10Hz",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.11.0/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue",
+        "-Dsplunk.profiler.call.stack.interval\u003d100",
+        "-Dsplunk.profiler.memory.enabled\u003dtrue",
+        "-Dsplunk.profiler.cpu.data.format\u003dpprof-gzip-base64"
+      ]
+    }
+  ],
+  "maxRequestRate": 900,
+  "concurrentConnections": 30,
+  "totalIterations": 8500,
+  "warmupSeconds": 60
+}

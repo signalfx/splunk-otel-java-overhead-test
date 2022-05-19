@@ -1,0 +1,27 @@
+----------------------------------------------------------
+ Run at Thu May 19 21:27:34 UTC 2022
+ release_30vu_8500iter : multiple agent configurations compared
+ 30 users, 8500 iterations
+----------------------------------------------------------
+Agent               :  full-pprof:0.1Hz   full-pprof:1Hz  full-pprof:10Hz
+Run duration        :          00:00:23         00:00:23         00:00:24
+Avg. CPU (user)     :        0.49056518       0.51271826       0.49309102
+Max. CPU (user)     :        0.57843137         0.619403       0.61813843
+Avg. CPU (system)   :       0.105785124       0.09985895       0.10530401
+Max. CPU (system)   :        0.14179105        0.1442786        0.1404762
+Avg. mch tot cpu    :         0.8955297       0.90339655       0.86990446
+Startup time (ms)   :             23534            22945            22811
+Total allocated MB  :          25205.56         23530.74         39030.28
+Heap (min)          :         113060336         85892608         84139312
+Heap (max)          :         392593920        410384744        455351608
+Thread switch rate  :         24593.352        21594.746        21838.693
+GC time             :         522552482        390195746        501702180
+GC pause time       :               522              476              716
+Req. mean           :             14.84            13.57            19.17
+Req. p95            :             43.30            38.60            54.84
+Iter. mean          :             68.03            67.56            70.67
+Iter. p95           :            102.85            97.57           114.84
+Net read avg (bps)  :        3226363.00       3302580.00       2933217.00
+Net write avg (bps) :       41836585.00      43025312.00      38001443.00
+Peak threads        :                67               68               67
+Throughput (RPS)    :            869.38           872.51           838.27
