@@ -24,7 +24,7 @@ public enum Configs {
       .name("release_30vu_8500iter")
       .description("multiple agent configurations compared")
 //      .withAgents(Agent.NONE, Agent.SPLUNK_OTEL, Agent.SPLUNK_PROFILER)
-      .withAgents(Agent.SPLUNK_PROFILER, Agent.SPLUNK_PROFILER_PPROF, Agent.SPLUNK_PROFILER_TLAB, Agent.SPLUNK_PROFILER_TLAB_PPROF)
+      .withAgents(Agent.SPLUNK_PROFILER_PPROF_10s, Agent.SPLUNK_PROFILER_PPROF_1Hz, Agent.SPLUNK_PROFILER_PPROF_10Hz)
       .totalIterations(8500)
       .warmupSeconds(60)
       .maxRequestRate(900)
