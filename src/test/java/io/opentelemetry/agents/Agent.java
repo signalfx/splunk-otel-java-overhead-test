@@ -17,23 +17,19 @@ public class Agent {
   private final static String SPLUNK_AGENT_URL =
       "https://github.com/signalfx/splunk-otel-java/releases/download/v" + LATEST_VERSION + "/splunk-otel-javaagent.jar";
 
-  public final static Agent SPLUNK_OTEL = new Agent("splunk-otel", "splunk-otel-java " + LATEST_VERSION,
-      SPLUNK_AGENT_URL);
-  public final static Agent SPLUNK_PROFILER = new Agent("cpu:text", LATEST_VERSION + " cpu profiler text",
-      SPLUNK_AGENT_URL,
-      List.of("-Dsplunk.profiler.enabled=true"));
-
-  public final static Agent SPLUNK_PROFILER_PPROF = new Agent("cpu:pprof", LATEST_VERSION + " cpu profiler pprof",
-      SPLUNK_AGENT_URL,
-      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
-
-  public final static Agent SPLUNK_PROFILER_TLAB = new Agent("cpu:text+mem:pprof", LATEST_VERSION + " cpu:text + mem:pprof",
-      SPLUNK_AGENT_URL,
-      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.memory.enabled=true"));
-
-  public final static Agent SPLUNK_PROFILER_TLAB_PPROF = new Agent("cpu+mem:pprof", LATEST_VERSION + " cpu+mem pprof",
+  public final static Agent SPLUNK_PROFILER_PPROF_10s = new Agent("full-pprof:0.1Hz", LATEST_VERSION + "full-pprof:0.1Hz",
       SPLUNK_AGENT_URL,
       List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.memory.enabled=true", "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
+
+  public final static Agent SPLUNK_PROFILER_PPROF_1Hz = new Agent("full-pprof:1Hz", LATEST_VERSION + "full-pprof:1Hz",
+      SPLUNK_AGENT_URL,
+      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.call.stack.interval=1000", "-Dsplunk.profiler.memory.enabled=true",
+              "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
+
+  public final static Agent SPLUNK_PROFILER_PPROF_10Hz = new Agent("full-pprof:10Hz", LATEST_VERSION + "full-pprof:10Hz",
+      SPLUNK_AGENT_URL,
+      List.of("-Dsplunk.profiler.enabled=true", "-Dsplunk.profiler.call.stack.interval=100", "-Dsplunk.profiler.memory.enabled=true",
+              "-Dsplunk.profiler.cpu.data.format=pprof-gzip-base64"));
 
   private final String name;
   private final String description;
