@@ -3,6 +3,7 @@ package io.opentelemetry.results;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import io.opentelemetry.agents.Agents;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -38,55 +39,42 @@ public class YamlSummaryPersister implements ResultsPersister {
         }
     }
 
-    private Map<String, Object> buildDataModel(List<AppPerfResults> results) throws IOException {
-        ResultsAverager averager = new ResultsAverager(results);
+    private Map<String, Object> buildDataModel(List<AppPerfResults> results) {
         Map<String, Object> result = new HashMap<>();
-        String none = "No Instrumentation";
-        String agent = "Splunk OpenTelemetry Java agent";
-        String profiler = "Splunk OpenTelemetry Java agent with AlwaysOn Profiling";
-
         result.put("version", guessVersion(results));
         result.put("datetime", new SimpleDateFormat("MMMM d, yyyy").format(date));
 
         Map<String, String> cpu = new HashMap<>();
-        cpu.put(none, String.format("%d%%", (int) (100 * averager.jvmUserCpu("none"))));
-        cpu.put(agent, String.format("%d%%", (int) (100 * averager.jvmUserCpu("splunk-otel"))));
-        cpu.put(profiler, String.format("%d%%", (int) (100 * averager.jvmUserCpu("profiler"))));
         result.put("CPU", cpu);
-
         Map<String, String> network = new HashMap<>();
-        network.put(none, String.format("%.2f MiB/s", averager.networkWriteAvgMbps("none")));
-        network.put(agent, String.format("%.2f MiB/s", averager.networkWriteAvgMbps("splunk-otel")));
-        network.put(profiler, String.format("%.2f MiB/s", averager.networkWriteAvgMbps("profiler")));
         result.put("Network", network);
-
         Map<String, String> latency = new HashMap<>();
-        latency.put(none, String.format("%.2f milliseconds", averager.requestLatency("none")));
-        latency.put(agent, String.format("%.2f milliseconds", averager.requestLatency("splunk-otel")));
-        latency.put(profiler, String.format("%.2f milliseconds", averager.requestLatency("profiler")));
         result.put("Request latency", latency);
-
         Map<String, String> throughput = new HashMap<>();
-        throughput.put(none, String.format("%.2f requests per second", averager.throughput("none")));
-        throughput.put(agent, String.format("%.2f requests per second", averager.throughput("splunk-otel")));
-        throughput.put(profiler, String.format("%.2f requests per second", averager.throughput("profiler")));
         result.put("Throughput", throughput);
-
         Map<String, String> startup = new HashMap<>();
-        startup.put(none, String.format("%.2f seconds", averager.startupTime("none")));
-        startup.put(agent, String.format("%.2f seconds", averager.startupTime("splunk-otel")));
-        startup.put(profiler, String.format("%.2f seconds", averager.startupTime("profiler")));
         result.put("Startup time", startup);
+
+        ResultsAverager averager = new ResultsAverager(results);
+        for (AppPerfResults r : results) {
+            String agentName = r.agent.getName();
+            String agentDescription = r.agent.getName();
+
+            cpu.put(agentDescription, String.format("%d%%", (int) (100 * averager.jvmUserCpu(agentName))));
+            network.put(agentDescription, String.format("%.2f MiB/s", averager.networkWriteAvgMbps(agentName)));
+            latency.put(agentDescription, String.format("%.2f milliseconds", averager.requestLatency(agentName)));
+            throughput.put(agentDescription, String.format("%.2f requests per second", averager.throughput(agentName)));
+            startup.put(agentDescription, String.format("%.2f seconds", averager.startupTime(agentName)));
+        }
 
         return result;
     }
 
     private String guessVersion(List<AppPerfResults> results) {
         return results.stream()
-                .filter(r -> r.getAgentName().equals("splunk-otel"))
+                .filter(r -> r.getAgentName().equals(Agents.SPLUNK_OTEL.getName()))
                 .findFirst()
-                .map(r -> r.agent.getDescription())
-                .map(d -> d.substring(d.lastIndexOf(" ")+1))
+                .map(r -> r.agent.getVersion())
                 .orElse("unknown version");
     }
 

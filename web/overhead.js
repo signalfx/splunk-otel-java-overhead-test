@@ -1,10 +1,4 @@
 
-const MARKETING_NAMES = {
-    'none': 'Not instrumented',
-    'splunk-otel': 'Splunk Java OTel agent',
-    'profiler': 'Splunk Java OTel agent with AlwaysOn Profiling'
-}
-
 async function startOverhead() {
     console.log('overhead started');
     document.getElementById('test-run')
@@ -25,7 +19,7 @@ async function testRunChosen() {
     const config = await getConfig(value);
     const results = await getResults(value)
     addOverview(config);
-    addCharts(results);
+    addCharts(results, config);
 }
 
 function addOverview(config) {
@@ -65,10 +59,11 @@ function addAgents(overview, config) {
         body.classList.add('card-body');
         const title = document.createElement('h5')
         title.classList.add('card-title');
-        title.innerText = `${MARKETING_NAMES[agent.name]} (${agent.name})`;
+        title.innerText = agent.description;
         const subtitle = document.createElement('h6');
         subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
-        subtitle.innerText = agent.description;
+        const versionStr = agent.version || 'unknown version'
+        subtitle.innerText = `${agent.name} (${versionStr})`;
         const iconLink = document.createElement('a');
         iconLink.classList.add('float-end', agent.url ? 'text-primary' : 'text-secondary');
         iconLink.href = agent.url || '#';
@@ -110,36 +105,43 @@ function populateRunsDropDown(runNames) {
     });
 }
 
-function addCharts(aggregated) {
-    makeChart(aggregated, 'startupDurationMs', "Seconds", x => x / 1000);
-    makeChart(aggregated, 'averageCpuUser', "% CPU load");
-    makeChart(aggregated, 'maxCpuUser', "% CPU load");
-    makeChart(aggregated, 'maxHeapUsed', "Megabytes", x => x / (1024 * 1024));
-    makeChart(aggregated, 'totalAllocatedMB', "Gigabytes", x => x / (1024));
-    makeChart(aggregated, 'totalGCTime', "Seconds", x => x / (1000 * 1000 * 1000));
-    makeChart(aggregated, 'gcPauseMs', "Milliseconds");
-    makeChart(aggregated, 'iterationAvg', "Milliseconds");
-    makeChart(aggregated, 'iterationP95', "Milliseconds");
-    makeChart(aggregated, 'requestAvg', "Milliseconds");
-    makeChart(aggregated, 'requestP95', "Milliseconds");
-    makeChart(aggregated, 'netReadAvg', "MiB/s", x => x / (1024 * 1024));
-    makeChart(aggregated, 'netWriteAvg', "MiB/s", x => x / (1024 * 1024));
-    makeChart(aggregated, 'peakThreadCount', "MiB/s");
-    makeChart(aggregated, 'maxThreadContextSwitchRate', "Switches per second");
-    makeChart(aggregated, 'runDurationMs', "Seconds", x => x / 1000);
+function addCharts(aggregated, config) {
+    makeChart(aggregated, config, 'startupDurationMs', "Seconds", x => x / 1000);
+    makeChart(aggregated, config, 'averageCpuUser', "% CPU load");
+    makeChart(aggregated, config, 'maxCpuUser', "% CPU load");
+    makeChart(aggregated, config, 'maxHeapUsed', "Megabytes", x => x / (1024 * 1024));
+    makeChart(aggregated, config, 'totalAllocatedMB', "Gigabytes", x => x / (1024));
+    makeChart(aggregated, config, 'totalGCTime', "Seconds", x => x / (1000 * 1000 * 1000));
+    makeChart(aggregated, config, 'gcPauseMs', "Milliseconds");
+    makeChart(aggregated, config, 'iterationAvg', "Milliseconds");
+    makeChart(aggregated, config, 'iterationP95', "Milliseconds");
+    makeChart(aggregated, config, 'requestAvg', "Milliseconds");
+    makeChart(aggregated, config, 'requestP95', "Milliseconds");
+    makeChart(aggregated, config, 'netReadAvg', "MiB/s", x => x / (1024 * 1024));
+    makeChart(aggregated, config, 'netWriteAvg', "MiB/s", x => x / (1024 * 1024));
+    makeChart(aggregated, config, 'peakThreadCount', "MiB/s");
+    makeChart(aggregated, config, 'maxThreadContextSwitchRate', "Switches per second");
+    makeChart(aggregated, config, 'runDurationMs', "Seconds", x => x / 1000);
 }
 
-function makeMarketingNames(agents) {
-    return agents.map(a => MARKETING_NAMES[a] || a);
+function makeMarketingNames(agentNames, config) {
+    return agentNames.map(agentName => {
+        for (var i = 0; i < config.agents.length; ++i) {
+            if (config.agents[i].name === agentName)  {
+                return config.agents[i].description;
+            }
+        }
+        return agentName;
+    })
 }
 
-function makeChart(aggregated, resultType, axisTitle, scaleFunction = x => x) {
-    const agents = aggregated['agents'];
-    const marketingNames = makeMarketingNames(agents);
-    const initialResults = agents.map(agent => aggregated['results'][resultType][agent]);
+function makeChart(aggregated, config, resultType, axisTitle, scaleFunction = x => x) {
+    const agentNames = aggregated['agents'];
+    const descriptions = makeMarketingNames(agentNames, config);
+    const initialResults = agentNames.map(agent => aggregated['results'][resultType][agent]);
     const results = initialResults.map(scaleFunction);
     new Chartist.Bar(`#${resultType}-chart`, {
-            labels: marketingNames,
+            labels: descriptions,
             series: [results]
         },
         {

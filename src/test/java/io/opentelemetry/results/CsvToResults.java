@@ -1,6 +1,7 @@
 package io.opentelemetry.results;
 
 import io.opentelemetry.agents.Agent;
+import io.opentelemetry.agents.Agents;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -89,14 +90,15 @@ class CsvToResults {
     private static Agent findAgent(String agent) {
         switch(agent){
             case "none":
-                return Agent.NONE;
+                return Agents.NONE;
             case "splunk-otel":
-                return Agent.SPLUNK_OTEL;
+                return Agents.SPLUNK_OTEL;
             case "splunk-otel-profiler":
             case "profiler":
-                return Agent.SPLUNK_PROFILER;
+            case "cpu:text":
+                return Agents.SPLUNK_PROFILER;
         }
-        return new Agent("unknown", "unknown agent");
+        return new Agent.Builder().name("unknown").description("unknown agent").build();
     }
 
     private static List<Field> readFields(String firstLine) {
@@ -104,8 +106,8 @@ class CsvToResults {
         return Arrays.stream(firstFields)
                 .skip(1)
                 .map(field -> {
-                    String[] parts = field.split(":");
-                    return new Field(parts[0], parts[1]);
+                    int i = field.lastIndexOf(':');
+                    return new Field(field.substring(0, i), field.substring(i + 1));
                 }).collect(Collectors.toList());
     }
 

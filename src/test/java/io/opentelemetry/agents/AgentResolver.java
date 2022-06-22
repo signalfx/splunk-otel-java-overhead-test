@@ -21,10 +21,10 @@ public class AgentResolver {
   private final LatestAgentSnapshotResolver snapshotResolver = new LatestAgentSnapshotResolver();
 
   public Optional<Path> resolve(Agent agent) throws Exception {
-    if(Agent.NONE.equals(agent)){
+    if(Agents.NONE.equals(agent)){
       return Optional.empty();
     }
-    if(Agent.LATEST_UPSTREAM_SNAPSHOT.equals(agent)){
+    if(Agents.LATEST_UPSTREAM_SNAPSHOT.equals(agent)){
       return snapshotResolver.resolve();
     }
     if(agent.hasUrl()){
