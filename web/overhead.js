@@ -126,12 +126,8 @@ function addCharts(aggregated, config) {
 
 function makeMarketingNames(agentNames, config) {
     return agentNames.map(agentName => {
-        for (var i = 0; i < config.agents.length; ++i) {
-            if (config.agents[i].name === agentName)  {
-                return config.agents[i].description;
-            }
-        }
-        return agentName;
+        const agent = config.agents.find( agent => agent.name === agentName);
+        return agent ? agent.description : agentName;
     })
 }
 
