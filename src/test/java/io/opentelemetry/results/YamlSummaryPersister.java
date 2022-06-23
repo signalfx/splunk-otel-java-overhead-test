@@ -45,15 +45,10 @@ public class YamlSummaryPersister implements ResultsPersister {
         result.put("datetime", new SimpleDateFormat("MMMM d, yyyy").format(date));
 
         Map<String, String> cpu = new HashMap<>();
-        result.put("CPU", cpu);
         Map<String, String> network = new HashMap<>();
-        result.put("Network", network);
         Map<String, String> latency = new HashMap<>();
-        result.put("Request latency", latency);
         Map<String, String> throughput = new HashMap<>();
-        result.put("Throughput", throughput);
         Map<String, String> startup = new HashMap<>();
-        result.put("Startup time", startup);
 
         ResultsAverager averager = new ResultsAverager(results);
         for (AppPerfResults r : results) {
@@ -66,6 +61,12 @@ public class YamlSummaryPersister implements ResultsPersister {
             throughput.put(agentDescription, String.format("%.2f requests per second", averager.throughput(agentName)));
             startup.put(agentDescription, String.format("%.2f seconds", averager.startupTime(agentName)));
         }
+
+        result.put("CPU", cpu);
+        result.put("Network", network);
+        result.put("Request latency", latency);
+        result.put("Throughput", throughput);
+        result.put("Startup time", startup);
 
         return result;
     }

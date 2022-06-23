@@ -9,6 +9,10 @@ import java.util.List;
 
 public final class Agent {
 
+  public static Builder builder() {
+    return new Builder();
+  }
+
   private final String name;
   private final String description;
   private final String version;
@@ -65,12 +69,12 @@ public final class Agent {
       return this;
     }
 
-    Builder version(String version) {
+    public Builder version(String version) {
       this.version = version;
       return this;
     }
 
-    Builder url(String url) {
+    public Builder url(String url) {
       if (url != null) {
         try {
           this.url = URI.create(url).toURL();
@@ -81,7 +85,7 @@ public final class Agent {
       return this;
     }
 
-    Builder additionalJvmArgs(String... additionalJvmArgs) {
+    public Builder additionalJvmArgs(String... additionalJvmArgs) {
       this.additionalJvmArgs = List.of(additionalJvmArgs);
       return this;
     }

@@ -98,7 +98,7 @@ class CsvToResults {
             case "cpu:text":
                 return Agents.SPLUNK_PROFILER;
         }
-        return new Agent.Builder().name("unknown").description("unknown agent").build();
+        return Agent.builder().name("unknown").description("unknown agent").build();
     }
 
     private static List<Field> readFields(String firstLine) {
