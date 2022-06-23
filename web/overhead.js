@@ -7,8 +7,14 @@ async function startOverhead() {
         .then(runNames => {
             console.log(runNames);
             populateRunsDropDown(runNames);
-            document.getElementById('test-run').value = runNames[0];
-            testRunChosen(runNames[0]);
+
+            const urlResultId = getResultIdFromUrl();
+            let selectedResult = runNames[0];
+            if(urlResultId && runNames.includes(urlResultId)){
+                selectedResult = urlResultId;
+            }
+            document.getElementById('test-run').value = selectedResult;
+            testRunChosen();
         });
 }
 
@@ -20,6 +26,7 @@ async function testRunChosen() {
     const results = await getResults(value)
     addOverview(config);
     addCharts(results, config);
+    updateUrl(value);
 }
 
 function addOverview(config) {
