@@ -133,7 +133,8 @@ function addCharts(aggregated, config) {
 
 function makeMarketingNames(agentNames, config) {
     return agentNames.map(agentName => {
-        const agent = config.agents.find( agent => agent.name === agentName);
+        const agents = config.agents || [];
+        const agent = agents.find( agent => agent.name === agentName);
         return agent ? agent.description : agentName;
     })
 }
