@@ -43,7 +43,7 @@ MSG="Add test results: ${REV}"
 rsync -avv --progress "${RESULTS}/${REV}" github-clone/results/
 cd github-clone
 echo "Results list: " && ls -l results/
-ls -1 results/ | grep -v README | grep -v index.txt > results/index.txt
+ls -1 results/ | grep -v README | grep -v index.txt | grep -v latest.yaml > results/index.txt
 echo "Copying latest yaml..."
 cp results/${REV}/results.yaml results/latest.yaml
 echo "Adding new files to changelist"

@@ -3,7 +3,10 @@
 async function getRuns(){
     return fetch(`results/index.txt`)
         .then(resp => resp.text())
-        .then(body => body.split("\n").filter(x => x !== 'index.txt'));
+        .then(body =>
+            body.split("\n")
+                .filter(x => x.match(/^\d{8}_/))
+        );
 }
 
 async function getResults(name){
