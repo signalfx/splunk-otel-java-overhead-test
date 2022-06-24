@@ -4,7 +4,7 @@
  */
 package io.opentelemetry.config;
 
-import io.opentelemetry.agents.Agent;
+import io.opentelemetry.agents.Agents;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -23,7 +23,7 @@ public enum Configs {
   RELEASE(TestConfig.builder()
       .name("release_30vu_8500iter")
       .description("multiple agent configurations compared")
-      .withAgents(Agent.NONE, Agent.SPLUNK_OTEL, Agent.SPLUNK_PROFILER)
+      .withAgents(Agents.NONE, Agents.SPLUNK_OTEL, Agents.SPLUNK_PROFILER)
       .totalIterations(8500)
       .warmupSeconds(60)
       .maxRequestRate(900)
