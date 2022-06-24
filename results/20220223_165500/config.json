@@ -4,18 +4,21 @@
   "agents": [
     {
       "name": "none",
-      "description": "no agent at all",
+      "description": "No Instrumentation",
+      "version": "unknown version",
       "additionalJvmArgs": []
     },
     {
       "name": "splunk-otel",
-      "description": "splunk-otel-java 1.8.0",
+      "description": "Splunk OpenTelemetry Java agent",
+      "version": "1.8.0",
       "url": "https://repo1.maven.org/maven2/com/splunk/splunk-otel-javaagent/1.8.0/splunk-otel-javaagent-1.8.0.jar",
       "additionalJvmArgs": []
     },
     {
       "name": "profiler",
-      "description": "splunk-otel-java 1.8.0 w/ profiler",
+      "description": "Splunk OpenTelemetry Java agent with AlwaysOn Profiling",
+      "version": "1.8.0",
       "url": "https://repo1.maven.org/maven2/com/splunk/splunk-otel-javaagent/1.8.0/splunk-otel-javaagent-1.8.0.jar",
       "additionalJvmArgs": [
         "-Dsplunk.profiler.enabled\u003dtrue"
