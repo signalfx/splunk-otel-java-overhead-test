@@ -4,18 +4,21 @@
   "agents": [
     {
       "name": "none",
-      "description": "no agent at all",
+      "description": "No Instrumentation",
+      "version": "unknown version",
       "additionalJvmArgs": []
     },
     {
       "name": "splunk-otel",
-      "description": "splunk-otel-java 1.12.0",
+      "description": "Splunk OpenTelemetry Java agent",
+      "version": "1.12.0",
       "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.12.0/splunk-otel-javaagent.jar",
       "additionalJvmArgs": []
     },
     {
       "name": "cpu:text",
-      "description": "1.12.0 cpu profiler text",
+      "description": "Splunk OpenTelemetry Java agent with AlwaysOn Profiling",
+      "version": "1.12.0",
       "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.12.0/splunk-otel-javaagent.jar",
       "additionalJvmArgs": [
         "-Dsplunk.profiler.enabled\u003dtrue"
