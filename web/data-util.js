@@ -21,12 +21,20 @@
  */
 function parseCsv(body) {
     const runs = parseRuns(body);
-    const agents = body.split('\n')[0].split(',').slice(1).map(x => x.replace(/:.*/, '')).slice(0, 3);
+    const agents = body.split('\n')[0].split(',').slice(1).map(csvAgentName).slice(0, 3);
     console.log(agents);
     return {
         agents: agents,
         runs: runs
     }
+}
+
+function csvAgentName(field){
+    return field.slice(0, field.lastIndexOf(':'));
+}
+
+function csvDataFieldName(field){
+    return field.slice(field.lastIndexOf(':')+1);
 }
 
 function parseRuns(body) {
@@ -37,8 +45,8 @@ function parseRuns(body) {
         const fields = line.split(",");
         const timestamp = fields.shift();
         const fieldTuples = fields.map((elem, i) => {
-            const agent = fieldNames[i + 1].replace(/:.*/, '');
-            const fieldName = fieldNames[i + 1].replace(/.*:/, '');
+            const agent = csvAgentName(fieldNames[i + 1]);
+            const fieldName = csvDataFieldName(fieldNames[i + 1]);
             return [agent, fieldName, elem];
         });
         const obj = fieldTuples.reduce((acc, tuple) => {
