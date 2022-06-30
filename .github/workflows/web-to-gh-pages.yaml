@@ -13,12 +13,25 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Bring web contents to root
-        run: cp web/* .
-      - name: Commit updated results
-        uses: EndBug/add-and-commit@v9
         with:
-          add: '*.js *.html *.css'
-          branch: 'gh-pages'
-          message: 'copy static UI content to gh-pages'
-
+          ref: 'main'
+          path: 'main'
+      - uses: actions/checkout@v3
+        with:
+          ref: 'gh-pages'
+          path: 'gh-pages'
+      - name: Copy the web ui code to gh-pages
+        run: cp main/web/* gh-pages/
+      - name: Add all gh-pages files to git
+        working-directory: ./gh-pages
+        run: |
+          for f in $(find . -type f -depth 1 -not -path '*/.*') ; do
+          git add "$f" 
+          done
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        working-directory: ./gh-pages
+        run: |
+          git commit -a -m "Updating gh-pages web ui"
+          git push origin gh-pages
