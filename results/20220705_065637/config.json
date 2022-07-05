@@ -1,0 +1,31 @@
+{
+  "name": "release_30vu_8500iter",
+  "description": "multiple agent configurations compared",
+  "agents": [
+    {
+      "name": "none",
+      "description": "No Instrumentation",
+      "additionalJvmArgs": []
+    },
+    {
+      "name": "splunk-otel",
+      "description": "Splunk OpenTelemetry Java agent",
+      "version": "1.13.1",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.13.1/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": []
+    },
+    {
+      "name": "cpu:text",
+      "description": "Splunk OpenTelemetry Java agent with AlwaysOn Profiling",
+      "version": "1.13.1",
+      "url": "https://github.com/signalfx/splunk-otel-java/releases/download/v1.13.1/splunk-otel-javaagent.jar",
+      "additionalJvmArgs": [
+        "-Dsplunk.profiler.enabled\u003dtrue"
+      ]
+    }
+  ],
+  "maxRequestRate": 900,
+  "concurrentConnections": 30,
+  "totalIterations": 8500,
+  "warmupSeconds": 60
+}
