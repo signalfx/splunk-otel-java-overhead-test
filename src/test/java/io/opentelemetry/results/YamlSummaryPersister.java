@@ -53,7 +53,7 @@ public class YamlSummaryPersister implements ResultsPersister {
         ResultsAverager averager = new ResultsAverager(results);
         for (AppPerfResults r : results) {
             String agentName = r.agent.getName();
-            String agentDescription = r.agent.getName();
+            String agentDescription = r.agent.getDescription();
 
             cpu.put(agentDescription, String.format("%d%%", (int) (100 * averager.jvmUserCpu(agentName))));
             network.put(agentDescription, String.format("%.2f MiB/s", averager.networkWriteAvgMbps(agentName)));
