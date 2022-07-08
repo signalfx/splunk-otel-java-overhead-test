@@ -20,8 +20,8 @@ async function showHistorical() {
     configs.sort((a, b) => a.run.localeCompare(b.run));
     // console.log(configs);
     const configsWithResults = await addResults(configs);
-    console.log('everything:');
-    console.log(configsWithResults);
+    // console.log('everything:');
+    // console.log(configsWithResults);
     addHistoricalOverview(configsWithResults);
     addHistoricalCharts(configsWithResults);
     setTimeout(tiltLabels, 1);
@@ -60,7 +60,10 @@ function makeHistoricalChart(configsWithResults, resultsType, axisTitle, scaleFu
 
     const labels = results.map(x => x[0]);
     const seriesData = data.map(x => ({"name": x[0], "data": x[1]}));
-    console.log(seriesData);
+    // console.log(seriesData);
+    seriesData.forEach(series => {
+        series.data = series.data.map(scaleFunction);
+    });
     new Chartist.Line(`#${resultsType}-chart`, {
         labels: labels,
         series: seriesData
