@@ -18,10 +18,7 @@ async function toggleHistorical() {
 async function showHistorical() {
     const configs = await getAllRunConfigs();
     configs.sort((a, b) => a.run.localeCompare(b.run));
-    // console.log(configs);
     const configsWithResults = await addResults(configs);
-    // console.log('everything:');
-    // console.log(configsWithResults);
     addHistoricalOverview(configsWithResults);
     addHistoricalCharts(configsWithResults);
     setTimeout(tiltLabels, 1);
@@ -58,23 +55,18 @@ function makeHistoricalChart(configsWithResults, resultsType, axisTitle, scaleFu
         const res = config.results.results[resultsType];
         return [config.run, res];
     });
-    // console.log(results);
     const agents = allAgents(configsWithResults);
     const standardAgents = agents.filter(agent => !agent.includes(':'));
-    // console.log(agents);
     const groupedByAgent = standardAgents.map(agent => {
         return [agent, results.map(result => {
            return result[1][agent];
         })];
     });
 
-    // console.log(groupedByAgent);
     const data = groupedByAgent.filter(seriesIsEmpty);
-    // console.log(data);
 
     const labels = results.map(x => x[0]);
     const seriesData = data.map(x => ({"name": x[0], "data": x[1]}));
-    // console.log(seriesData);
     seriesData.forEach(series => {
         series.data = series.data.map(scaleFunction);
     });
