@@ -53,19 +53,6 @@ h2:before {
     stroke-width: 4px;
 }
 
-/* -- rotate the label text -- */
-/*svg.ct-chart-bar, svg.ct-chart-line{*/
-/*    overflow: visible;*/
-/*}*/
-/*.ct-label.ct-label.ct-horizontal.ct-end {*/
-/*    position: relative;*/
-/*    justify-content: flex-end;*/
-/*    text-align: right;*/
-/*    transform-origin: 100% 0;*/
-/*    transform: translate(-100%) rotate(-55deg);*/
-/*    white-space:nowrap;*/
-/*}*/
-
 /* ---- ct-legend for chartist -- */
 
 .ct-legend li {
