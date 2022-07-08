@@ -35,6 +35,20 @@ function addHistoricalOverview(configsWithResults) {
 function addHistoricalCharts(configsWithResults) {
     makeHistoricalChart(configsWithResults, 'startupDurationMs', "Seconds", x => x / 1000);
     makeHistoricalChart(configsWithResults, 'averageCpuUser', "% CPU load");
+    makeHistoricalChart(configsWithResults, 'maxCpuUser', "% CPU load");
+    makeHistoricalChart(configsWithResults, 'maxHeapUsed', "Megabytes", x => x / (1024 * 1024));
+    makeHistoricalChart(configsWithResults, 'totalAllocatedMB', "Gigabytes", x => x / (1024));
+    makeHistoricalChart(configsWithResults, 'totalGCTime', "Seconds", x => x / (1000 * 1000 * 1000));
+    makeHistoricalChart(configsWithResults, 'gcPauseMs', "Milliseconds");
+    makeHistoricalChart(configsWithResults, 'iterationAvg', "Milliseconds");
+    makeHistoricalChart(configsWithResults, 'iterationP95', "Milliseconds");
+    makeHistoricalChart(configsWithResults, 'requestAvg', "Milliseconds");
+    makeHistoricalChart(configsWithResults, 'requestP95', "Milliseconds");
+    makeHistoricalChart(configsWithResults, 'netReadAvg', "MiB/s", x => x / (1024 * 1024));
+    makeHistoricalChart(configsWithResults, 'netWriteAvg', "MiB/s", x => x / (1024 * 1024));
+    makeHistoricalChart(configsWithResults, 'peakThreadCount', "MiB/s");
+    makeHistoricalChart(configsWithResults, 'maxThreadContextSwitchRate', "Switches per second");
+    makeHistoricalChart(configsWithResults, 'runDurationMs', "Seconds", x => x / 1000);
 
 }
 
