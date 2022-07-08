@@ -55,6 +55,9 @@ h2:before {
 
 /* ---- ct-legend for chartist -- */
 
+.ct-legend {
+    padding-left: 100px;
+}
 .ct-legend li {
     position: relative;
     padding-left: 23px;
