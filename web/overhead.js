@@ -9,11 +9,14 @@ async function startOverhead() {
             populateRunsDropDown(runNames);
 
             const urlResultId = getResultIdFromUrl();
-            let selectedResult = runNames[0];
+            let selectedResult = runNames[runNames.length - 1];
             if(urlResultId && runNames.includes(urlResultId)){
                 selectedResult = urlResultId;
             }
             document.getElementById('test-run').value = selectedResult;
+            if(urlIsShowingHistorical()){
+                return toggleHistorical();
+            }
             testRunChosen();
         });
 }

@@ -1,16 +1,23 @@
 async function toggleHistorical() {
     console.log("Toggle historical view...")
-    const sel = document.getElementById('test-run');
-    //currentUrl.searchParams.delete(name);
+    const testDropDown = document.getElementById('test-run');
+    // currentUrl.searchParams.delete(name);
     // sel.disabled = !sel.disabled;
-    if (sel.classList.contains('d-none')) {
-        sel.classList.remove('d-none');
+    let historicalCurrentlyShown = testDropDown.classList.contains('d-none');
+    if (historicalCurrentlyShown) {
+        testDropDown.classList.remove('d-none');
+        await testRunChosen();
+        document.querySelectorAll('.ct-legend').forEach(x => x.style.display = 'none');
     } else {
-        sel.classList.add('d-none');
+        testDropDown.classList.add('d-none');
+        updateUrlForHistorical();
+        await showHistorical();
     }
+}
 
+async function showHistorical() {
     const configs = await getAllRunConfigs();
-    configs.sort((a,b) => a.run.localeCompare(b.run));
+    configs.sort((a, b) => a.run.localeCompare(b.run));
     // console.log(configs);
     const configsWithResults = await addResults(configs);
     console.log('everything:');
@@ -60,7 +67,9 @@ function makeHistoricalChart(configsWithResults, resultsType, axisTitle, scaleFu
     }, {
         fullWidth: true,
         chartPadding: {
-            right: 40
+            left: 40,
+            right: 40,
+            top: 40
         },
         lineSmooth: Chartist.Interpolation.none({
             fillHoles: false
