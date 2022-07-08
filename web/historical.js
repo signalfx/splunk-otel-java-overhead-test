@@ -74,6 +74,9 @@ function makeHistoricalChart(configsWithResults, resultsType, axisTitle, scaleFu
             right: 40,
             top: 40
         },
+        axisY: {
+            low: 0
+        },
         lineSmooth: Chartist.Interpolation.none({
             fillHoles: false
         }),
