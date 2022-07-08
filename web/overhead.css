@@ -53,6 +53,13 @@ h2:before {
     stroke-width: 4px;
 }
 
+.ct-series-a .ct-line {
+    stroke: #3760e3;
+}
+.ct-series-a .ct-point {
+    stroke: #3760e3;
+}
+
 /* ---- ct-legend for chartist -- */
 
 .ct-legend {
@@ -89,8 +96,8 @@ h2:before {
     margin: 0;
 }
 .ct-legend .ct-series-0:before {
-    background-color: #d70206;
-    border-color: #d70206;
+    background-color: #3760e3;
+    border-color: #3760e3;
 }
 .ct-legend .ct-series-1:before {
     background-color: #f05b4f;
@@ -110,8 +117,8 @@ h2:before {
 }
 
 .ct-chart-line-multipleseries .ct-legend .ct-series-0:before {
-    background-color: #d70206;
-    border-color: #d70206;
+    background-color: #3760e3;
+    border-color: #3760e3;
 }
 
 .ct-chart-line-multipleseries .ct-legend .ct-series-1:before {
