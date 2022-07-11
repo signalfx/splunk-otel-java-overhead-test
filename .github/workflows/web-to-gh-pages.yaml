@@ -29,6 +29,7 @@ jobs:
           git add "$f" 
           done
       - name: Configure git user info
+        working-directory: ./gh-pages
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
