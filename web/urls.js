@@ -11,3 +11,13 @@ function updateUrl(resultId){
     history.replaceState({}, '', currentUrl.toString());
 }
 
+function updateUrlForHistorical(){
+    const url = new URL(window.location.href);
+    url.searchParams.set('r', 'historical');
+    history.replaceState({}, '', url.toString());
+}
+
+function urlIsShowingHistorical(){
+    const url = new URL(window.location.href);
+    return 'historical' === url.searchParams.get('r');
+}

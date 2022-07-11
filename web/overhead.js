@@ -9,11 +9,14 @@ async function startOverhead() {
             populateRunsDropDown(runNames);
 
             const urlResultId = getResultIdFromUrl();
-            let selectedResult = runNames[0];
+            let selectedResult = runNames[runNames.length - 1];
             if(urlResultId && runNames.includes(urlResultId)){
                 selectedResult = urlResultId;
             }
             document.getElementById('test-run').value = selectedResult;
+            if(urlIsShowingHistorical()){
+                return toggleHistorical();
+            }
             testRunChosen();
         });
 }
@@ -164,18 +167,38 @@ function makeChart(aggregated, config, resultType, axisTitle, scaleFunction = x 
                         return text.toFixed(2);
                     }
                 }),
-                Chartist.plugins.ctAxisTitle({
-                    axisY: {
-                        axisTitle: axisTitle,
-                        axisClass: "ct-axis-title",
-                        offset: {
-                            x: 0,
-                            y: 15
-                        },
-                        flipTitle: true
-                    }
-                })
+                makeChartistAxisTitle(axisTitle)
             ]
         },
     );
+}
+
+function makeChartistAxisTitle(axisTitle) {
+    return Chartist.plugins.ctAxisTitle({
+        axisY: {
+            axisTitle: axisTitle,
+            axisClass: "ct-axis-title",
+            offset: {
+                x: 0,
+                y: 15
+            },
+            flipTitle: true
+        }
+    });
+}
+
+function tiltLabels(){
+    document.querySelectorAll('svg.ct-chart-bar, svg.ct-chart-line').forEach(x => {
+        x.style.overflow = 'visible';
+    })
+    const labels = document.querySelectorAll('.ct-label.ct-label.ct-horizontal.ct-end');
+    labels.forEach(label => {
+        label.style.position = 'relative';
+        label.style['justify-content'] = 'flex-end';
+        label.style['text-align'] = 'right';
+        label.style['transform-origin'] = '100% 0';
+        label.style.transform = 'translate(-100%) rotate(-55deg)';
+        label.style['white-space'] = 'nowrap';
+        label.style['font-size'] = '0.6em';
+    });
 }
