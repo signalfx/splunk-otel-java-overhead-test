@@ -1,8 +1,6 @@
 async function toggleHistorical() {
     console.log("Toggle historical view...")
     const testDropDown = document.getElementById('test-run');
-    // currentUrl.searchParams.delete(name);
-    // sel.disabled = !sel.disabled;
     let historicalCurrentlyShown = testDropDown.classList.contains('d-none');
     if (historicalCurrentlyShown) {
         testDropDown.classList.remove('d-none');

@@ -202,15 +202,3 @@ function tiltLabels(){
         label.style['font-size'] = '0.6em';
     });
 }
-
-function straightLabels(){
-    const labels = document.querySelectorAll('.ct-label.ct-label.ct-horizontal.ct-end');
-    labels.forEach(label => {
-        label.style.removeProperty('position');
-        label.style.removeProperty('justify-content');
-        label.style.removeProperty('text-align');
-        label.style.removeProperty('transform-origin');
-        label.style.removeProperty('transform');
-        label.style.removeProperty('white-space');
-    });
-}
