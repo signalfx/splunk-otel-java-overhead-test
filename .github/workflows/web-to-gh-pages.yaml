@@ -28,6 +28,10 @@ jobs:
           for f in $(find . -type f -depth 1 -not -path '*/.*') ; do
           git add "$f" 
           done
+      - name: Configure git user info
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
