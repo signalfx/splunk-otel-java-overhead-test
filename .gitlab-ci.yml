@@ -65,5 +65,7 @@ copy-web-ui:
   only:
     changes:
       - web/*
+  image:
+    name: docker.repo.splunkdev.net/ci-cd/ci-container:python-3.9-aws
   script:
     - ./provision/create-ui-pr.sh
