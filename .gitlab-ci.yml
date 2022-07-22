@@ -1,7 +1,6 @@
 
 stages:
   - run-test
-  - copy-ui-to-gh-pages
 
 run-test:
   stage: run-test
@@ -61,7 +60,7 @@ run-test:
     - ./provision/create-results-pr.sh
 
 copy-web-ui:
-  stage: copy-ui-to-gh-pages
+  stage: run-test
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
       changes:
