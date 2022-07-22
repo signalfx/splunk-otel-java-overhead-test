@@ -47,6 +47,14 @@ git commit -S -am "[automated] Updating gh-pages web ui"
 echo "Pushing results to remote branch ${NEW_BRANCH}"
 git push https://srv-gh-o11y-gdi:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git "$NEW_BRANCH"
 
+echo "Installing github cli (gh)"
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | \
+  gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
+  tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+apt update
+apt install -y gh
+
 echo "Running PR create command:"
 gh pr create \
   --title "[automated] Update gh-pages web ui" \
