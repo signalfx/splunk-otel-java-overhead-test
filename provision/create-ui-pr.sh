@@ -45,7 +45,7 @@ git status
 
 git commit -S -am "[automated] Updating gh-pages web ui"
 echo "Pushing results to remote branch ${NEW_BRANCH}"
-git push https://srv-gh-o11y-gdi:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git ${NEW_BRANCH}
+git push https://srv-gh-o11y-gdi:"${GITHUB_TOKEN}"@github.com/signalfx/splunk-otel-java-overhead-test.git "$NEW_BRANCH"
 
 echo "Running PR create command:"
 gh pr create \
