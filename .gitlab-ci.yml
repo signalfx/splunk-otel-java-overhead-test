@@ -1,6 +1,7 @@
 
 stages:
   - run-test
+  - copy-ui-to-gh-pages
 
 run-test:
   stage: run-test
@@ -58,3 +59,13 @@ run-test:
     - ./provision/wait-for-test-complete.sh
     - ./provision/fetch-results.sh
     - ./provision/create-results-pr.sh
+
+copy-web-ui:
+  stage: copy-ui-to-gh-pages
+  only:
+    changes:
+      - web/*
+  image:
+    name: docker.repo.splunkdev.net/ci-cd/ci-container:python-3.9-aws
+  script:
+    - ./provision/create-ui-pr.sh
