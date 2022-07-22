@@ -36,7 +36,7 @@ git checkout -b ${NEW_BRANCH}
 
 echo "Copying web ui files to gh-pages branch"
 cp ../web/* .
-for f in $(find . -type f -depth 1 -not -path '*/.*') ; do
+for f in $(find . -maxdepth 1 -type f -not -path '*/.*') ; do
    git add "$f"
 done
 
