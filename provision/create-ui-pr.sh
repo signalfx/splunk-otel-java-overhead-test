@@ -38,6 +38,7 @@ echo "Copying web ui files to gh-pages branch"
 cp ../web/* .
 for f in $(find . -type f -depth 1 -not -path '*/.*') ; do
    git add "$f"
+done
 
 echo "Setting up a new pull request for gh-pages changes"
 git status
