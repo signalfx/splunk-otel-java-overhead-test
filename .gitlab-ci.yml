@@ -62,6 +62,8 @@ run-test:
 
 copy-web-ui:
   stage: copy-ui-to-gh-pages
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
   only:
     changes:
       - web/*
